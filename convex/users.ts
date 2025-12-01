@@ -1,5 +1,5 @@
 import { mutation } from "./_generated/server";
-import {v} from "convex/values";
+import { v } from "convex/values";
 
 export const createUser = mutation({
   args: {
@@ -9,12 +9,12 @@ export const createUser = mutation({
   },
   handler: async (ctx, args) => {
     const existingUser = await ctx.db
-        .query("users")
-        .withIndex("by_clerkId", (q) => q.eq("clerkId", args.clerkId))
-        .unique();
-        
+      .query("users")
+      .withIndex("byClerkId", (q) => q.eq("clerkId", args.clerkId)) 
+      .unique();
+
     if (existingUser) {
-        console.log("User already exists:", existingUser);
+      console.log("User already exists:", existingUser);
       return existingUser._id;
     }
 
@@ -25,7 +25,6 @@ export const createUser = mutation({
     });
 
     console.log("Created new user with ID:", userId);
-    return userId;  
+    return userId;
   }
 });
-   
